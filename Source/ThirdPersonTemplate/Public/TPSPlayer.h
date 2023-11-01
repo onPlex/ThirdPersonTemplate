@@ -4,7 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "InputAction.h"
 #include "TPSPlayer.generated.h"
+
+
+class UInputMappingContext;
+class UInputAction;
 
 UCLASS()
 class THIRDPERSONTEMPLATE_API ATPSPlayer : public ACharacter
@@ -33,4 +38,31 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
 	class UCameraComponent* cameraComp;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputMappingContext* PlayerMappingContext;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* MoveIA;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* LookUpIA;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* TurnIA;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* JumpIA;
+
+public:
+	void Move(const FInputActionValue& Value);
+	void LookUp(const FInputActionValue& Value);
+	void Turn(const FInputActionValue& Value);
+	void InputJump(const FInputActionValue& Value);
+
+public:
+	//UPROPERTY(EditAnywhere, Category = "Move")
+	//float moveSpeed;
+
+private:
+    FVector moveDirection;
+
+	void Locomotion();
 };
