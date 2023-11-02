@@ -39,6 +39,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Camera")
 	class UCameraComponent* cameraComp;
 
+	UPROPERTY(VisibleAnywhere, Category = "Fire")
+	class UStaticMeshComponent* weaponMeshComp;
+
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputMappingContext* PlayerMappingContext;
 
@@ -50,19 +53,26 @@ public:
 	UInputAction* TurnIA;
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* JumpIA;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* FireIA;
 
 public:
 	void Move(const FInputActionValue& Value);
 	void LookUp(const FInputActionValue& Value);
 	void Turn(const FInputActionValue& Value);
 	void InputJump(const FInputActionValue& Value);
+	void InputFire(const FInputActionValue& Value);
 
 public:
 	//UPROPERTY(EditAnywhere, Category = "Move")
 	//float moveSpeed;
 
+	UPROPERTY(EditAnywhere, Category = "Fire")
+	TSubclassOf<class APBullet> magazine;
+
 private:
     FVector moveDirection;
 
 	void Locomotion();
+
 };

@@ -4,6 +4,7 @@
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "PBullet.h"
 
 
 // Sets default values
@@ -38,7 +39,11 @@ ATPSPlayer::ATPSPlayer()
 	bUseControllerRotationYaw = true;
 
 	//moveSpeed = 100;
-	
+
+	//메쉬컴포넌트 생성
+	weaponMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
+	//캐릭터 메쉬에 부착
+	weaponMeshComp->SetupAttachment(GetMesh());
 }
 
 // Called when the game starts or when spawned
@@ -54,6 +59,55 @@ void ATPSPlayer::BeginPlay()
 			Subsystem->AddMappingContext(PlayerMappingContext, 0);
 		}
 	}
+
+	/*
+	//[]() -> 익명 함수
+	// 함수 -> Uknown ,void 랑 다르다.
+	auto lamdaFunc = []()->void {
+		UE_LOG(LogTemp, Warning, TEXT("Lamda Lamda"));
+		};
+		//마치, 지역변수처럼 선언을 함
+	lamdaFunc();
+	*/
+
+	/*
+	int32 sum = 10;
+	auto lamdaFunc = [&sum](int number)-> void
+		{
+			sum += number;
+		};
+
+	lamdaFunc(20);
+	UE_LOG(LogTemp, Warning, TEXT("SUM : %d"), sum);
+	*/
+
+	/*
+	TArray<int32> Numbers = { 1,2,3,4,5,6,7,8,9,10 };
+	TArray<int32> EvenNumbers;
+
+	for (int i = 0; i < Numbers.Num(); i++)
+	{
+		if (Numbers[i] % 2 == 0) // -> 2로 나누어 나머지가, 0이면 --> 짝수
+		{
+			//c++ , Array != TArray == stl::vector
+			EvenNumbers.Add(Numbers[i]);
+			//Numbers , i 번째가 짝수이니까 , EvenNumbers 배열에 ADD
+		}
+	}
+	// EvenNumbers = { 2,4,6,8,10}
+
+	//람다식
+	auto PrintNumber = [](int number)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Numbers : %d"), number);
+		};
+
+	UE_LOG(LogTemp, Warning, TEXT("Even Numbers ...."));
+	for (int32 Num : EvenNumbers)  // ex) 1:2 -> ratio / 비 / 대응 반복 
+	{
+		PrintNumber(Num);
+	}
+	*/
 }
 
 // Called every frame
@@ -74,6 +128,7 @@ void ATPSPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 		EnhancedInputComponent->BindAction(LookUpIA, ETriggerEvent::Triggered, this, &ATPSPlayer::LookUp);
 		EnhancedInputComponent->BindAction(TurnIA, ETriggerEvent::Triggered, this, &ATPSPlayer::Turn);
 		EnhancedInputComponent->BindAction(JumpIA, ETriggerEvent::Triggered, this, &ATPSPlayer::InputJump);
+		EnhancedInputComponent->BindAction(FireIA, ETriggerEvent::Triggered, this, &ATPSPlayer::InputFire);
 	}
 }
 
@@ -83,16 +138,16 @@ void ATPSPlayer::Move(const FInputActionValue& Value)
 
 	if (Controller)
 	{
-	     moveDirection.Y = _currentValue.X;
-		 moveDirection.X = _currentValue.Y;
+		moveDirection.Y = _currentValue.X;
+		moveDirection.X = _currentValue.Y;
 	}
 }
 
 void ATPSPlayer::LookUp(const FInputActionValue& Value)
 {
-     //mouse y - 한 축의 값 (float)
+	//mouse y - 한 축의 값 (float)
 	const float _currentValue = Value.Get<float>();
-    AddControllerPitchInput(_currentValue);
+	AddControllerPitchInput(_currentValue);
 }
 
 void ATPSPlayer::Turn(const FInputActionValue& Value)
@@ -104,7 +159,13 @@ void ATPSPlayer::Turn(const FInputActionValue& Value)
 
 void ATPSPlayer::InputJump(const FInputActionValue& Value)
 {
-    Jump();
+	Jump();
+}
+
+void ATPSPlayer::InputFire(const FInputActionValue& Value)
+{
+	FTransform firePostion = weaponMeshComp->GetSocketTransform(TEXT("FirePostion"));
+	GetWorld()->SpawnActor<APBullet>(magazine, firePostion);
 }
 
 void ATPSPlayer::Locomotion()
