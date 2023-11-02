@@ -45,8 +45,11 @@ void APBullet::BeginPlay()
 
 	//타이머 조작 하는 변수 ~= 알람, 언리얼 기능 (Tool)
 	FTimerHandle deathTimer; 
-	GetWorld()->GetTimerManager().SetTimer(deathTimer,this,&APBullet::Die, 2.0f,false);
+	//GetWorld()->GetTimerManager().SetTimer(deathTimer,this,&APBullet::Die, 2.0f,false);
 	//(알림, 알림처리를 할 객체, 알림 처리 함수, 알림 시간, 반복 여부, 첫 호출 전 딜레이 시간)
+
+	//FTimerDelegate ~= 언리얼 Timer관련 delegate를 관리하는 클래스 
+	GetWorld()->GetTimerManager().SetTimer(deathTimer,FTimerDelegate::CreateLambda([this]()->void{Destroy();}), 2.0f,false);
 }
 
 // Called every frame
@@ -55,8 +58,8 @@ void APBullet::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void APBullet::Die()
-{
-	Destroy();
-}
+//void APBullet::Die()
+//{
+//	Destroy();
+//}
 

@@ -35,5 +35,5 @@ public:
 	class UStaticMeshComponent* meshComp;
 
 public:
-	void Die();
+	//void Die();
 };

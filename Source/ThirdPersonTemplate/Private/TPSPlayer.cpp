@@ -103,10 +103,46 @@ void ATPSPlayer::BeginPlay()
 		};
 
 	UE_LOG(LogTemp, Warning, TEXT("Even Numbers ...."));
-	for (int32 Num : EvenNumbers)  // ex) 1:2 -> ratio / 비 / 대응 반복 
+	for (int32 Num : EvenNumbers)  // ex) 1:2 -> ratio / 비 / 대응 반복
 	{
 		PrintNumber(Num);
 	}
+	*/
+
+	/*
+	auto calculator = [](int x, int y, char op)->int{
+			// op 문자열에 따라서 경우의 수를 달리 한다
+			switch (op)
+			{
+			case '+':
+				return x + y;
+			case '-':
+				return x - y;
+			case '*':
+				return x * y;
+			case '/':
+				//나누셈은 언제나 0 주의 
+				if (y != 0) // 0이 아닐때, 일반적인 나누기 
+				{
+					return x / y;
+				}
+				else
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Error : Division by zero."));
+					return 0;
+				}
+			default:
+				UE_LOG(LogTemp, Warning, TEXT("Error : Invalid operator"));
+				return 0;
+			}
+		};
+
+
+	int a = 10, b = 5;
+	char operation = '*';
+
+	int answer = calculator(a, b, operation);
+	UE_LOG(LogTemp, Warning, TEXT("answer : %d"), answer);
 	*/
 }
 
