@@ -70,6 +70,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Fire")
 	TSubclassOf<class APBullet> magazine;
 
+	UPROPERTY(EditAnywhere, Category = "Animation")
+	UAnimMontage* attackAnimMontage;
+
 private:
     FVector moveDirection;
 

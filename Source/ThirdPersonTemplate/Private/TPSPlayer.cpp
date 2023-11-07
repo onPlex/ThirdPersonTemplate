@@ -202,6 +202,13 @@ void ATPSPlayer::InputFire(const FInputActionValue& Value)
 {
 	FTransform firePostion = weaponMeshComp->GetSocketTransform(TEXT("FirePostion"));
 	GetWorld()->SpawnActor<APBullet>(magazine, firePostion);
+
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance)
+	{
+	    AnimInstance->Montage_Play(attackAnimMontage);
+	}
 }
 
 void ATPSPlayer::Locomotion()
