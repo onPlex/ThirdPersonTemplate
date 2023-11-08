@@ -42,8 +42,12 @@ ATPSPlayer::ATPSPlayer()
 
 	//메쉬컴포넌트 생성
 	weaponMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
-	//캐릭터 메쉬에 부착
-	weaponMeshComp->SetupAttachment(GetMesh());
+	//캐릭터 메쉬에 부착  
+	weaponMeshComp->SetupAttachment(GetMesh(),FName("Character1_RightHandSocket"));
+
+	fireCoolTime = 1.85f;
+	fireTimerTime = 0;
+	fireReady = true;
 }
 
 // Called when the game starts or when spawned
@@ -151,6 +155,11 @@ void ATPSPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	Locomotion();
+
+	if (!fireReady)
+	{
+		FireCoolTimer(fireCoolTime, DeltaTime);
+	}
 }
 
 // Called to bind functionality to input
@@ -200,14 +209,15 @@ void ATPSPlayer::InputJump(const FInputActionValue& Value)
 
 void ATPSPlayer::InputFire(const FInputActionValue& Value)
 {
-	FTransform firePostion = weaponMeshComp->GetSocketTransform(TEXT("FirePostion"));
-	GetWorld()->SpawnActor<APBullet>(magazine, firePostion);
-
-
-	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance)
+	if (fireReady)
 	{
-	    AnimInstance->Montage_Play(attackAnimMontage);
+		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+		if (AnimInstance)
+		{
+			AnimInstance->Montage_Play(attackAnimMontage);
+		}
+
+		fireReady = false;
 	}
 }
 
@@ -227,5 +237,24 @@ void ATPSPlayer::Locomotion()
 	AddMovementInput(moveDirection);
 	//방향 초기화
 	moveDirection = FVector::ZeroVector; //ZeroVector; == FVector(0,0,0)
+}
+
+void ATPSPlayer::FireCoolTimer(float Duration, float deltaTime)
+{
+	if (fireTimerTime < Duration)
+	{
+		fireTimerTime+= deltaTime;
+    }
+	else
+	{
+		fireTimerTime = 0;
+		fireReady = true;
+	}
+}
+
+void ATPSPlayer::SpawnBullet()
+{
+	FTransform firePostion = weaponMeshComp->GetSocketTransform(TEXT("FirePostion"));
+	GetWorld()->SpawnActor<APBullet>(magazine, firePostion);
 }
 

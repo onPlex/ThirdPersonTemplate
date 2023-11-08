@@ -73,9 +73,21 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Animation")
 	UAnimMontage* attackAnimMontage;
 
-private:
-    FVector moveDirection;
 
+private:
 	void Locomotion();
+
+	FVector moveDirection;
+	bool fireReady;
+	float fireTimerTime;
+
+public:
+	UPROPERTY(EditAnywhere, Category = "Fire")
+	float fireCoolTime;
+protected:
+    void FireCoolTimer(float Duration, float deltaTime);
+
+public:
+	void SpawnBullet();
 
 };
