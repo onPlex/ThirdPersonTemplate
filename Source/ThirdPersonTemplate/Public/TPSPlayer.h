@@ -11,6 +11,7 @@
 class UInputMappingContext;
 class UInputAction;
 
+
 UCLASS()
 class THIRDPERSONTEMPLATE_API ATPSPlayer : public ACharacter
 {
@@ -41,6 +42,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "Fire")
 	class UStaticMeshComponent* weaponMeshComp;
+
+	UPROPERTY(EditAnywhere, Category = "FX")
+	class UNiagaraComponent* niagaraFX;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputMappingContext* PlayerMappingContext;
@@ -90,4 +94,5 @@ protected:
 public:
 	void SpawnBullet();
 
+	void ShowFX();
 };

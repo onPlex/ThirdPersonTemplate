@@ -4,8 +4,9 @@
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "NiagaraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "PBullet.h"
-
 
 // Sets default values
 ATPSPlayer::ATPSPlayer()
@@ -63,6 +64,9 @@ void ATPSPlayer::BeginPlay()
 			Subsystem->AddMappingContext(PlayerMappingContext, 0);
 		}
 	}
+
+	niagaraFX = GetComponentByClass<UNiagaraComponent>();
+	niagaraFX->SetVisibility(false);
 
 	/*
 	//[]() -> 익명 함수
@@ -256,5 +260,17 @@ void ATPSPlayer::SpawnBullet()
 {
 	FTransform firePostion = weaponMeshComp->GetSocketTransform(TEXT("FirePostion"));
 	GetWorld()->SpawnActor<APBullet>(magazine, firePostion);
+}
+
+void ATPSPlayer::ShowFX()
+{   
+	if(niagaraFX == nullptr)
+	{
+	    niagaraFX = GetComponentByClass<UNiagaraComponent>();
+	}
+
+	bool show = GetCharacterMovement()->IsFalling();	
+	niagaraFX->SetVisibility(show);
+	GetMesh()->SetVisibility(!show);
 }
 
