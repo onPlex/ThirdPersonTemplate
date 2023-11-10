@@ -10,8 +10,8 @@ UCLASS()
 class THIRDPERSONTEMPLATE_API ADoorTriggerBox : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ADoorTriggerBox();
 
@@ -19,8 +19,45 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+	UFUNCTION()
+	void OverlapLevelLoadBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OhterComp, int32 OthterBodyIndex, bool bFromSweep,
+		const FHitResult& SweepResult);
+
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+public:
+
+	UPROPERTY(VisibleAnywhere)
+	class UBoxComponent* colliderComp;
+
+	UPROPERTY(VisibleAnywhere)
+	class UStaticMeshComponent* meshComp;
+
+	UPROPERTY(VisibleAnywhere)
+	class UNiagaraComponent* niagaraFxComp;
+
+public:
+	UPROPERTY(EditAnywhere, Category = "Level")
+	FName levelToLoad;
+
+public:
+	void LevelStreming(bool stream);
+
+	void AttractorControl();
+public:
+
+	UPROPERTY(EditAnywhere, Category = "MainFunction")
+	bool bForStream;
+	UPROPERTY(EditAnywhere, Category = "Level")
+	bool bLoad;
+
+	UPROPERTY(EditAnywhere, Category = "MainFunction")
+	bool bForAttractorControl;
+
+	UPROPERTY(EditAnywhere, Category = "AttractorControl")
+	class AActor* attractorActor; 
+	UPROPERTY(EditAnywhere, Category = "AttractorControl")
+	FVector movePoint;
 };
