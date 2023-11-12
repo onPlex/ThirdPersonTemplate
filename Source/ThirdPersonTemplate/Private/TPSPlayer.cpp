@@ -14,25 +14,25 @@ ATPSPlayer::ATPSPlayer()
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// ConstructorHelpers ¶ó´Â À¯Æ¿¸®Æ¼·Î ¿¡¼Â °¡Á®¿À±â(Ã£±â)
+	// ConstructorHelpers ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¿ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Ã£ï¿½ï¿½)
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> initMesh(TEXT("/Script/Engine.SkeletalMesh'/Game/MyResource/unitychan.unitychan'"));
 
-	if (initMesh.Succeeded()) //Á¦´ë·Î ¿ÀºêÁ§Æ®¸¦ °¡Á®¿Ô´Ù¸é ~ 
+	if (initMesh.Succeeded()) //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ù¸ï¿½ ~ 
 	{
 		GetMesh()->SetSkeletalMesh(initMesh.Object);
 
-		//Relative - > »ó´ëÀû À§Ä¡°ª, È¸Àü°ª
+		//Relative - > ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½, È¸ï¿½ï¿½ï¿½ï¿½
 		GetMesh()->SetRelativeLocationAndRotation(FVector(0, 0, -88), FRotator(0, -90, 0));
 	}
 
-	//springArm »ý¼º - ÃÊ±âÈ­ 
+	//springArm ï¿½ï¿½ï¿½ï¿½ - ï¿½Ê±ï¿½È­ 
 	springArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
 	springArmComp->SetupAttachment(RootComponent);
 	springArmComp->SetRelativeLocationAndRotation(FVector(0, 0, 50), FRotator(-20, 0, 0));
 	springArmComp->TargetArmLength = 530;
 	springArmComp->bUsePawnControlRotation = true;
 
-	//Ä«¸Þ¶ó »ý¼º - ÃÊ±âÈ­
+	//Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Ê±ï¿½È­
 	cameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
 	cameraComp->SetupAttachment(springArmComp);
 	cameraComp->bUsePawnControlRotation = false;
@@ -41,9 +41,9 @@ ATPSPlayer::ATPSPlayer()
 
 	//moveSpeed = 100;
 
-	//¸Þ½¬ÄÄÆ÷³ÍÆ® »ý¼º
+	//ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	weaponMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
-	//Ä³¸¯ÅÍ ¸Þ½¬¿¡ ºÎÂø  
+	//Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  
 	weaponMeshComp->SetupAttachment(GetMesh(),FName("Character1_RightHandSocket"));
 
 	fireCoolTime = 1.85f;
@@ -69,12 +69,12 @@ void ATPSPlayer::BeginPlay()
 	niagaraFX->SetVisibility(false);
 
 	/*
-	//[]() -> ÀÍ¸í ÇÔ¼ö
-	// ÇÔ¼ö -> Uknown ,void ¶û ´Ù¸£´Ù.
+	//[]() -> ï¿½Í¸ï¿½ ï¿½Ô¼ï¿½
+	// ï¿½Ô¼ï¿½ -> Uknown ,void ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½.
 	auto lamdaFunc = []()->void {
 		UE_LOG(LogTemp, Warning, TEXT("Lamda Lamda"));
 		};
-		//¸¶Ä¡, Áö¿ªº¯¼öÃ³·³ ¼±¾ðÀ» ÇÔ
+		//ï¿½ï¿½Ä¡, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	lamdaFunc();
 	*/
 
@@ -95,23 +95,23 @@ void ATPSPlayer::BeginPlay()
 
 	for (int i = 0; i < Numbers.Num(); i++)
 	{
-		if (Numbers[i] % 2 == 0) // -> 2·Î ³ª´©¾î ³ª¸ÓÁö°¡, 0ÀÌ¸é --> Â¦¼ö
+		if (Numbers[i] % 2 == 0) // -> 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 0ï¿½Ì¸ï¿½ --> Â¦ï¿½ï¿½
 		{
 			//c++ , Array != TArray == stl::vector
 			EvenNumbers.Add(Numbers[i]);
-			//Numbers , i ¹øÂ°°¡ Â¦¼öÀÌ´Ï±î , EvenNumbers ¹è¿­¿¡ ADD
+			//Numbers , i ï¿½ï¿½Â°ï¿½ï¿½ Â¦ï¿½ï¿½ï¿½Ì´Ï±ï¿½ , EvenNumbers ï¿½è¿­ï¿½ï¿½ ADD
 		}
 	}
 	// EvenNumbers = { 2,4,6,8,10}
 
-	//¶÷´Ù½Ä
+	//ï¿½ï¿½ï¿½Ù½ï¿½
 	auto PrintNumber = [](int number)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Numbers : %d"), number);
 		};
 
 	UE_LOG(LogTemp, Warning, TEXT("Even Numbers ...."));
-	for (int32 Num : EvenNumbers)  // ex) 1:2 -> ratio / ºñ / ´ëÀÀ ¹Ýº¹
+	for (int32 Num : EvenNumbers)  // ex) 1:2 -> ratio / ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½
 	{
 		PrintNumber(Num);
 	}
@@ -119,7 +119,7 @@ void ATPSPlayer::BeginPlay()
 
 	/*
 	auto calculator = [](int x, int y, char op)->int{
-			// op ¹®ÀÚ¿­¿¡ µû¶ó¼­ °æ¿ìÀÇ ¼ö¸¦ ´Þ¸® ÇÑ´Ù
+			// op ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¸ï¿½ ï¿½Ñ´ï¿½
 			switch (op)
 			{
 			case '+':
@@ -129,8 +129,8 @@ void ATPSPlayer::BeginPlay()
 			case '*':
 				return x * y;
 			case '/':
-				//³ª´©¼ÀÀº ¾ðÁ¦³ª 0 ÁÖÀÇ 
-				if (y != 0) // 0ÀÌ ¾Æ´Ò¶§, ÀÏ¹ÝÀûÀÎ ³ª´©±â 
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ 
+				if (y != 0) // 0ï¿½ï¿½ ï¿½Æ´Ò¶ï¿½, ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 				{
 					return x / y;
 				}
@@ -194,14 +194,14 @@ void ATPSPlayer::Move(const FInputActionValue& Value)
 
 void ATPSPlayer::LookUp(const FInputActionValue& Value)
 {
-	//mouse y - ÇÑ ÃàÀÇ °ª (float)
+	//mouse y - ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (float)
 	const float _currentValue = Value.Get<float>();
 	AddControllerPitchInput(_currentValue);
 }
 
 void ATPSPlayer::Turn(const FInputActionValue& Value)
 {
-	//mouse x  - ÇÑ ÃàÀÇ °ª (float)
+	//mouse x  - ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (float)
 	const float _currentValue = Value.Get<float>();
 	AddControllerYawInput(_currentValue);
 }
@@ -227,19 +227,19 @@ void ATPSPlayer::InputFire(const FInputActionValue& Value)
 
 void ATPSPlayer::Locomotion()
 {
-	//ÀÌµ¿¹æÇâÀ» ÄÁÆ®·Ñ ¹æÇâ ±âÁØÀ¸·Î º¯È¯
+	//ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 	moveDirection = FTransform(GetControlRotation()).TransformVector(moveDirection);
 
 	/*
-	//ÇÃ·¹ÀÌ¾î ÀÌµ¿ - µî¼Ó¿îµ¿
-	FVector P0 = GetActorLocation(); //ÇöÀçÀ§Ä¡
-	FVector vt = moveDirection * moveSpeed * DeltaTime; //ÀÌµ¿°Å¸®
+	//ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ìµï¿½ - ï¿½ï¿½Ó¿îµ¿
+	FVector P0 = GetActorLocation(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
+	FVector vt = moveDirection * moveSpeed * DeltaTime; //ï¿½Ìµï¿½ï¿½Å¸ï¿½
 	FVector P = P0 + vt;
 	SetActorLocation(P);
 	*/
 
 	AddMovementInput(moveDirection);
-	//¹æÇâ ÃÊ±âÈ­
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	moveDirection = FVector::ZeroVector; //ZeroVector; == FVector(0,0,0)
 }
 
