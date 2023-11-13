@@ -34,7 +34,7 @@ void ADoorTriggerBox::BeginPlay()
 
 void ADoorTriggerBox::OverlapLevelLoadBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OhterComp, int32 OthterBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Magenta, TEXT("Collision"));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Magenta, TEXT("Collision"));
    ATPSPlayer* _myCharacter = Cast<ATPSPlayer>(OtherActor);
 
    if (bForStream)
