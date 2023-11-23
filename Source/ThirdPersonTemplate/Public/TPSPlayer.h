@@ -93,6 +93,16 @@ protected:
 
 public:
 	void SpawnBullet();
-
 	void ShowFX();
+
+public: 
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly ,Category = "Status")
+	float maxHp;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Status")
+	float currentHP;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Status")
+	float maxMp;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Status")
+	float currentMP;
 };

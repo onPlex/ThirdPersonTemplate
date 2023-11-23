@@ -42,6 +42,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Level")
 	FName levelToLoad;
 
+	UPROPERTY(EditAnywhere, Category = "Level")
+	FName levelToUnLoad;
+
 public:
 	void LevelStreming(bool stream);
 

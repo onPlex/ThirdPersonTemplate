@@ -49,6 +49,11 @@ ATPSPlayer::ATPSPlayer()
 	fireCoolTime = 1.85f;
 	fireTimerTime = 0;
 	fireReady = true;
+
+	currentHP = 0;
+	maxHp = 100;
+	currentMP = 0;
+	maxMp = 100;
 }
 
 // Called when the game starts or when spawned
