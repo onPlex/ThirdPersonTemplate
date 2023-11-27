@@ -34,10 +34,10 @@ public:
 
 public:
 
-	UPROPERTY(VisibleAnywhere, Category = "Camera")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
 	class USpringArmComponent* springArmComp;
 
-	UPROPERTY(VisibleAnywhere, Category = "Camera")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
 	class UCameraComponent* cameraComp;
 
 	UPROPERTY(VisibleAnywhere, Category = "Fire")
@@ -59,6 +59,8 @@ public:
 	UInputAction* JumpIA;
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* FireIA;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* InteractionIA;
 
 public:
 	void Move(const FInputActionValue& Value);
@@ -66,6 +68,7 @@ public:
 	void Turn(const FInputActionValue& Value);
 	void InputJump(const FInputActionValue& Value);
 	void InputFire(const FInputActionValue& Value);
+	void InteractionPositive(const FInputActionValue& Value);
 
 public:
 	//UPROPERTY(EditAnywhere, Category = "Move")

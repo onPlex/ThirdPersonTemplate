@@ -7,6 +7,7 @@
 #include "NiagaraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "PBullet.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 ATPSPlayer::ATPSPlayer()
@@ -183,6 +184,7 @@ void ATPSPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 		EnhancedInputComponent->BindAction(TurnIA, ETriggerEvent::Triggered, this, &ATPSPlayer::Turn);
 		EnhancedInputComponent->BindAction(JumpIA, ETriggerEvent::Triggered, this, &ATPSPlayer::InputJump);
 		EnhancedInputComponent->BindAction(FireIA, ETriggerEvent::Triggered, this, &ATPSPlayer::InputFire);
+		EnhancedInputComponent->BindAction(InteractionIA, ETriggerEvent::Started, this, &ATPSPlayer::InteractionPositive);
 	}
 }
 
@@ -228,6 +230,26 @@ void ATPSPlayer::InputFire(const FInputActionValue& Value)
 
 		fireReady = false;
 	}
+}
+
+void ATPSPlayer::InteractionPositive(const FInputActionValue& Value)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Pressed E"));
+
+	FVector _Location;
+	FRotator _Rotation;
+	FHitResult _HitOut;
+
+	GetController()->GetPlayerViewPoint(_Location, _Rotation);
+
+	FVector _Start = _Location;
+	FVector _End = (_Rotation.Vector() * 2000); // 2000-> Disatance
+
+	FCollisionQueryParams _traceParams;
+	GetWorld()->LineTraceSingleByChannel(_HitOut, _Start, _End,ECC_Visibility, _traceParams);
+
+	DrawDebugLine(GetWorld(),_Start,_End,FColor::Green,false, 10.0f);
+
 }
 
 void ATPSPlayer::Locomotion()
