@@ -44,4 +44,8 @@ public:
 	TSubclassOf<class UItemShop> WidgetRef;
 	UPROPERTY()
 	class UItemShop* itemShopWidget;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite ,Category = "Shop")
+	TArray<FName> items;
+	
 };
