@@ -108,4 +108,7 @@ public:
 	float maxMp;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Status")
 	float currentMP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float interactionDistance;
 };

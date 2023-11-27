@@ -55,6 +55,8 @@ ATPSPlayer::ATPSPlayer()
 	maxHp = 100;
 	currentMP = 0;
 	maxMp = 100;
+
+	interactionDistance = 2000.f;
 }
 
 // Called when the game starts or when spawned
@@ -234,22 +236,19 @@ void ATPSPlayer::InputFire(const FInputActionValue& Value)
 
 void ATPSPlayer::InteractionPositive(const FInputActionValue& Value)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Pressed E"));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Pressed E"));
 
-	FVector _Location;
-	FRotator _Rotation;
+	//FVector _Location;
+	//FRotator _Rotation;
 	FHitResult _HitOut;
-
-	GetController()->GetPlayerViewPoint(_Location, _Rotation);
-
-	FVector _Start = _Location;
-	FVector _End = (_Rotation.Vector() * 2000); // 2000-> Disatance
+	//GetController()->GetPlayerViewPoint(_Location, _Rotation);
+	FVector _Start = GetActorLocation();
+	FVector _End = GetActorLocation() +(GetActorForwardVector() * interactionDistance); // 2000-> Disatance
 
 	FCollisionQueryParams _traceParams;
 	GetWorld()->LineTraceSingleByChannel(_HitOut, _Start, _End,ECC_Visibility, _traceParams);
 
-	DrawDebugLine(GetWorld(),_Start,_End,FColor::Green,false, 10.0f);
-
+	DrawDebugLine(GetWorld(),_Start,_End,FColor::Magenta,false, 3.0f);
 }
 
 void ATPSPlayer::Locomotion()
