@@ -251,6 +251,21 @@ void ATPSPlayer::InteractionPositive(const FInputActionValue& Value)
 	DrawDebugLine(GetWorld(),_Start,_End,FColor::Magenta,false, 3.0f);
 }
 
+void ATPSPlayer::UpdateMoney(int64 inputVal)
+{
+    int _result;
+	_result = money + inputVal;
+
+	if (_result < 0)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Not Enough Money ! "));
+	}
+	else
+	{
+		money = _result;
+	}
+}
+
 void ATPSPlayer::Locomotion()
 {
 	//�̵������� ��Ʈ�� ���� �������� ��ȯ
