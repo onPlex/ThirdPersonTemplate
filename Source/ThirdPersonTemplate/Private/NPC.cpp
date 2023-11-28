@@ -47,7 +47,8 @@ void ANPC::OverlapBeginTB(UPrimitiveComponent* OverlappedComponent, AActor* Othe
 
 	if (WidgetRef)
 	{
-		itemShopWidget= CreateWidget<UItemShop>(GetWorld(), WidgetRef);
+		itemShopWidget = CreateWidget<UItemShop>(GetWorld(), WidgetRef);
+		itemShopWidget->owenerNPC = this;
 		if(itemShopWidget)itemShopWidget->AddToViewport();
 	}
 
