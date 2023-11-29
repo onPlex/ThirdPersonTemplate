@@ -111,4 +111,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
 	float interactionDistance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Status")
+	int64 money = 9999;
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateMoney(int64 inputVal);
 };
