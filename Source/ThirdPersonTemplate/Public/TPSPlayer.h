@@ -11,7 +11,6 @@
 class UInputMappingContext;
 class UInputAction;
 
-
 UCLASS()
 class THIRDPERSONTEMPLATE_API ATPSPlayer : public ACharacter
 {
@@ -79,8 +78,6 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Animation")
 	UAnimMontage* attackAnimMontage;
-
-
 private:
 	void Locomotion();
 
@@ -117,4 +114,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateMoney(int64 inputVal);
+
+	
+	
 };

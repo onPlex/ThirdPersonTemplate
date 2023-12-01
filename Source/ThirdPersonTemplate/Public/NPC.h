@@ -47,4 +47,5 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite ,Category = "Shop")
 	TArray<FName> items;
+	
 };

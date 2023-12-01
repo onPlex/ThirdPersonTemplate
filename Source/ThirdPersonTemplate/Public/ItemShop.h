@@ -13,9 +13,8 @@ UCLASS()
 class THIRDPERSONTEMPLATE_API UItemShop : public UUserWidget
 {
 	GENERATED_BODY()
-	
-public:
 
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shop")
-	class ANPC* owenerNPC;
+	class ANPC* ownerNPC;	
 };
