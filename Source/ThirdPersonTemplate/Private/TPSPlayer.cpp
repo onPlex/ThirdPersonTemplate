@@ -315,5 +315,3 @@ void ATPSPlayer::ShowFX()
 	GetMesh()->SetVisibility(!show);
 }
 
-
-
