@@ -315,18 +315,5 @@ void ATPSPlayer::ShowFX()
 	GetMesh()->SetVisibility(!show);
 }
 
-void ATPSPlayer::UpdateMoney(int64 inputVal)
-{
-     int64 _result; 
-	 _result = money + inputVal;
 
-	 if (_result < 0)
-	 {   
-		 GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Magenta, TEXT("Not Enough Money "));
-	 }
-	 else
-	 {
-		 money = _result;
-	 }
-}
 
