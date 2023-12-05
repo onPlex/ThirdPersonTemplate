@@ -62,49 +62,78 @@ void AClock::RotateDirectionalLightWithTime(AActor* OwningActor)
 			FRotator _NewRotation = FRotator(_CurrentAngle, 0.0f, 0.0f);
 			_DirectionalLight->SetActorRotation(_NewRotation); //회전 설정
 
-
-			UDirectionalLightComponent* _DirectionalLightComp = _DirectionalLight->GetComponent();
-
-			FLinearColor InterpolatedColor;
-			float _LightTime = CurrentHour + (CurrentMinute / 60);
-			//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Magenta, FString::Printf(TEXT("%f"), _LightTime));
-
-			if (_LightTime > 0 && _LightTime <= 3)
-			{
-				InterpolatedColor = FLinearColor::LerpUsingHSV(Color24,Color3, _LightTime/3.0f);
-			}
-			else if (_LightTime > 3 && _LightTime <= 6)
-			{
-				InterpolatedColor = FLinearColor::LerpUsingHSV(Color3, Color6, _LightTime / 3.0f);
-			}
-			else if (_LightTime > 6 && _LightTime <= 9)
-			{
-				InterpolatedColor = FLinearColor::LerpUsingHSV(Color6, Color9, _LightTime / 3.0f);
-			}
-			else if (_LightTime > 9 && _LightTime <= 12)
-			{
-				InterpolatedColor = FLinearColor::LerpUsingHSV(Color9, Color12, _LightTime / 3.0f);
-			}
-			else if (_LightTime > 12 && _LightTime <= 15)
-			{
-				InterpolatedColor = FLinearColor::LerpUsingHSV(Color12, Color15, _LightTime / 3.0f);
-			}
-			else if (_LightTime > 15 && _LightTime <= 18)
-			{
-				InterpolatedColor = FLinearColor::LerpUsingHSV(Color15, Color18, _LightTime / 3.0f);
-			}
-			else if (_LightTime > 18 && _LightTime <= 21)
-			{
-				InterpolatedColor = FLinearColor::LerpUsingHSV(Color18, Color21, _LightTime / 3.0f);
-			}
-			else if (_LightTime > 21 && _LightTime <= 24)
-			{
-				InterpolatedColor = FLinearColor::LerpUsingHSV(Color21, Color24, _LightTime / 3.0f);
-			}
-
-			_DirectionalLightComp->SetLightColor(InterpolatedColor);
+			UpdateSunColorByHourMinute(OwningActor);
 		}
 	}
+}
+
+void AClock::UpdateSunColorByHourMinute(AActor* OwningActor)
+{
+     //UDirectionalLightComponent를 , OwningActor로부터 받아옴 
+	UDirectionalLightComponent* _DirectionalLightComp 
+	= Cast<ADirectionalLight>(OwningActor)->GetComponent();
+	float _LightTime = CurrentHour + (CurrentMinute / 60);
+
+	//시간 값을 24시간 단위로 보정
+	_LightTime = FMath::Fmod(_LightTime,24.0f);
+	float InterpolationFactor = (_LightTime - (CurrentColorIndex * 3)) / 3.0f;
+	
+	CurrentColorIndex = FMath::FloorToInt(_LightTime/3.0f) % SunColors.Num();
+	
+
+	if (CurrentColorIndex + 1 < SunColors.Num())
+	{
+		FLinearColor InterpolatedColor 
+		= FLinearColor::LerpUsingHSV(SunColors[CurrentColorIndex],
+			SunColors[CurrentColorIndex + 1], InterpolationFactor);
+
+		_DirectionalLightComp->SetLightColor(InterpolatedColor);
+	}
+	else 
+	{
+		FLinearColor InterpolatedColor
+			= FLinearColor::LerpUsingHSV(SunColors[CurrentColorIndex],
+				SunColors[0], InterpolationFactor);
+
+		_DirectionalLightComp->SetLightColor(InterpolatedColor);
+	}
+
+	/*
+	if (_LightTime > 0 && _LightTime <= 3)
+	{
+		InterpolatedColor = FLinearColor::LerpUsingHSV(Color24, Color3, _LightTime / 3.0f);
+	}
+	else if (_LightTime > 3 && _LightTime <= 6)
+	{
+		InterpolatedColor = FLinearColor::LerpUsingHSV(Color3, Color6, _LightTime / 3.0f);
+	}
+	else if (_LightTime > 6 && _LightTime <= 9)
+	{
+		InterpolatedColor = FLinearColor::LerpUsingHSV(Color6, Color9, _LightTime / 3.0f);
+	}
+	else if (_LightTime > 9 && _LightTime <= 12)
+	{
+		InterpolatedColor = FLinearColor::LerpUsingHSV(Color9, Color12, _LightTime / 3.0f);
+	}
+	else if (_LightTime > 12 && _LightTime <= 15)
+	{
+		InterpolatedColor = FLinearColor::LerpUsingHSV(Color12, Color15, _LightTime / 3.0f);
+	}
+	else if (_LightTime > 15 && _LightTime <= 18)
+	{
+		InterpolatedColor = FLinearColor::LerpUsingHSV(Color15, Color18, _LightTime / 3.0f);
+	}
+	else if (_LightTime > 18 && _LightTime <= 21)
+	{
+		InterpolatedColor = FLinearColor::LerpUsingHSV(Color18, Color21, _LightTime / 3.0f);
+	}
+	else if (_LightTime > 21 && _LightTime <= 24)
+	{
+		InterpolatedColor = FLinearColor::LerpUsingHSV(Color21, Color24, _LightTime / 3.0f);
+	}
+	*/	
+	
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Magenta, FString::Printf(TEXT("%f, %d"), _LightTime, CurrentColorIndex));
 }
 
 FString AClock::GetTimeByTotalSec(float totalSec)

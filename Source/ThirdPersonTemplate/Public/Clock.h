@@ -45,6 +45,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Sun")
 	class AActor* Sun;
 
+	/*
 	UPROPERTY(EditAnywhere, Category = "Sun")
 	FLinearColor Color3;
 	UPROPERTY(EditAnywhere, Category = "Sun")
@@ -61,10 +62,17 @@ public:
 	FLinearColor Color21;
 	UPROPERTY(EditAnywhere, Category = "Sun")
 	FLinearColor Color24;
-	
+	 */
+
+	UPROPERTY(EditAnywhere, Category = "Sun")
+	TArray<FLinearColor> SunColors;
 
 protected:
      void UpdateTime(float DeltaSec);
 
 	 void RotateDirectionalLightWithTime(AActor* OwningActor);
+
+	 void UpdateSunColorByHourMinute(AActor* OwningActor);
+
+	 int CurrentColorIndex;
 };
