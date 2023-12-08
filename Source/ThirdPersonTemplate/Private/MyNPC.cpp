@@ -49,6 +49,7 @@ void AMyNPC::OverlapBeginTB(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 {
 	if (WidgetRef) {
 		itemshopWidget = CreateWidget<UItemShop>(GetWorld(), WidgetRef);
+		itemshopWidget->ownerMyNPC = this;
 		if (itemshopWidget)itemshopWidget->AddToViewport();
 	}
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("NPC OverlapBeginTB"));

@@ -17,4 +17,6 @@ class THIRDPERSONTEMPLATE_API UItemShop : public UUserWidget
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shop")
 	class ANPC* ownerNPC;	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shop")
+	class AMyNPC* ownerMyNPC;
 };
