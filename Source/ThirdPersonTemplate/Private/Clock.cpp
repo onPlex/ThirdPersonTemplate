@@ -57,7 +57,7 @@ void AClock::RotateDirectionalLightWithTime(AActor* OwningActor)
 		{
 			// float _AnglePerHour = 360.0f / 24.0f; //360도를 24시간으로 나눔 = 15
 			//float _HourAngle = FMath::Fmod(CurrentHour * _AnglePerHour, 360.0f);
-			float _HourAngle = FMath::Fmod(CurrentHour * 15, 360.0f); //시간에 따른 각도 계산
+			float _HourAngle = FMath::Fmod(CurrentHour * 15, 170.0f) +190; //시간에 따른 각도 계산
 			float _MinuteAngle = (CurrentMinute / 60.0f) * 15; //분에 따른 각도 계산
 			float _SecondAngle = (CurrentMinute / 60.0f) * (15 / 60.0f); // 초에 따른 각도 계산
 			float _CurrentAngle = _HourAngle + _MinuteAngle + _SecondAngle;
