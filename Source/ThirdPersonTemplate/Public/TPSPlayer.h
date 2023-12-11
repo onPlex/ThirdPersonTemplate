@@ -60,6 +60,8 @@ public:
 	UInputAction* FireIA;
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* InteractionIA;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* InteractionIA_N;
 
 public:
 	void Move(const FInputActionValue& Value);
