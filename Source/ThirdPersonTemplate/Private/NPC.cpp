@@ -43,7 +43,7 @@ void ANPC::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ANPC::OverlapBeginTB(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OhterComp, int32 OthterBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Magenta, TEXT("Debug"));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Magenta, TEXT("Debug"));
 
 	if (WidgetRef)
 	{

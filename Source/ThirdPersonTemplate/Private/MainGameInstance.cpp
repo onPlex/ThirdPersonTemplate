@@ -5,24 +5,24 @@
 #include "Kismet/GameplayStatics.h"
 #include "TPSPlayer.h"
 
-//GameInstance.playerMoney --> TPSPlayer.money 
+//GameInstance.playerMoney --->>> TPSPlayer.money
 void UMainGameInstance::PullPlayerMoney()
 {
-    ATPSPlayer * myPlayer = Cast<ATPSPlayer>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0));
-
-    if (myPlayer)
-    {
-        myPlayer->money = PlayerMoney;
-    }
+	ATPSPlayer* myPlayer = Cast<ATPSPlayer>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	
+	if (myPlayer)
+	{
+		 myPlayer->money = PlayerMoney;
+	}
 }
 
-//TPSPlayer.money --> GameInstance.playerMoney
+//GameInstance.playerMoney <<<--- TPSPlayer.money
 void UMainGameInstance::PushPlayerMoney()
 {
-    ATPSPlayer* myPlayer = Cast<ATPSPlayer>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	ATPSPlayer* myPlayer = Cast<ATPSPlayer>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
-    if (myPlayer)
-    {
-        PlayerMoney = myPlayer->money;
-    }
+	if (myPlayer)
+	{
+		PlayerMoney = myPlayer->money;
+	}
 }

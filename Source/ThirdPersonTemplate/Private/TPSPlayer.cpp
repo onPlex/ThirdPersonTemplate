@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "PBullet.h"
 #include "DrawDebugHelpers.h"
+#include "Components/ActorComponent.h"
 
 // Sets default values
 ATPSPlayer::ATPSPlayer()
@@ -46,6 +47,9 @@ ATPSPlayer::ATPSPlayer()
 	weaponMeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
 	//ĳ���� �޽��� ����  
 	weaponMeshComp->SetupAttachment(GetMesh(),FName("Character1_RightHandSocket"));
+
+
+
 
 	fireCoolTime = 1.85f;
 	fireTimerTime = 0;
@@ -187,6 +191,7 @@ void ATPSPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 		EnhancedInputComponent->BindAction(JumpIA, ETriggerEvent::Triggered, this, &ATPSPlayer::InputJump);
 		EnhancedInputComponent->BindAction(FireIA, ETriggerEvent::Triggered, this, &ATPSPlayer::InputFire);
 		EnhancedInputComponent->BindAction(InteractionIA, ETriggerEvent::Started, this, &ATPSPlayer::InteractionPositive);
+		EnhancedInputComponent->BindAction(InteractionIA_N, ETriggerEvent::Started, this, &ATPSPlayer::InteractionPositive);
 	}
 }
 

@@ -6,9 +6,6 @@
 #include "Engine/GameInstance.h"
 #include "MainGameInstance.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class THIRDPERSONTEMPLATE_API UMainGameInstance : public UGameInstance
 {
@@ -16,18 +13,15 @@ class THIRDPERSONTEMPLATE_API UMainGameInstance : public UGameInstance
 
 public:
 
-     //플레이어 돈을 담을 변수 
-     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
-	 int64 PlayerMoney;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "Player")
+	int64 PlayerMoney;
 
-	 //플레이어 아이템(맵) 담을 변수
-	 UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
-	 TMap<FName, int> PlayerItems;
+	UFUNCTION(BlueprintCallable)
+    void PullPlayerMoney();
 
-public:
-	 UFUNCTION(BlueprintCallable)
-	 void PullPlayerMoney();
+	UFUNCTION(BlueprintCallable)
+	void PushPlayerMoney();
 
-	 UFUNCTION(BlueprintCallable)
-	 void PushPlayerMoney();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
+	TMap<FName,int> PlayerItems;
 };

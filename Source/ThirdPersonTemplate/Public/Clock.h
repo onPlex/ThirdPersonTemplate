@@ -25,27 +25,27 @@ public:
 
 public:
 
-    UPROPERTY (EditAnywhere, BlueprintReadOnly, Category = "Time")
-    float CurrentDay;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Time")
+	float CurrentDay;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Time")
 	float CurrentHour;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Time")
 	float CurrentMinute;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Time")
 	float CurrentSecond;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Time")
-	float TotalSecond;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Time")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
+	float TotalSeconds;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
 	float TimeScale = 1;
 
 	//현재시각 문자로 반환하는 함수
 	UFUNCTION(BlueprintCallable)
-	FString GetTimeByTotalSec(float totalSec);
+	FString GetTimeByTotalSec(float totlaSec);
 
 	UPROPERTY(EditAnywhere, Category = "Sun")
 	class AActor* Sun;
 
-	/*
+
 	UPROPERTY(EditAnywhere, Category = "Sun")
 	FLinearColor Color3;
 	UPROPERTY(EditAnywhere, Category = "Sun")
@@ -62,17 +62,9 @@ public:
 	FLinearColor Color21;
 	UPROPERTY(EditAnywhere, Category = "Sun")
 	FLinearColor Color24;
-	 */
-
-	UPROPERTY(EditAnywhere, Category = "Sun")
-	TArray<FLinearColor> SunColors;
 
 protected:
-     void UpdateTime(float DeltaSec);
+	void UpdateTime(float DeltaSec);
 
-	 void RotateDirectionalLightWithTime(AActor* OwningActor);
-
-	 void UpdateSunColorByHourMinute(AActor* OwningActor);
-
-	 int CurrentColorIndex;
+	void RotateDirectionalLightWithTime(AActor* OwningActor);
 };
