@@ -1,7 +1,4 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-// 23.12.07 
-
-
 #include "Clock.h"
 #include "Engine/DirectionalLight.h"
 #include "Components/DirectionalLightComponent.h"
@@ -136,7 +133,7 @@ void AClock::UpdateSunColorByHourMinute(AActor* OwningActor)
 	}
 	*/	
 	
-	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Magenta, FString::Printf(TEXT("%f, %d"), _LightTime, CurrentColorIndex));
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Magenta, FString::Printf(TEXT("%f, %d"), _LightTime, CurrentColorIndex));
 }
 
 FString AClock::GetTimeByTotalSec(float totalSec)
