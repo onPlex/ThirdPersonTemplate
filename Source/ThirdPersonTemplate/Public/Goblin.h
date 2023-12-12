@@ -19,14 +19,14 @@ public:
     virtual void Attack_Implementation() override;
     virtual void Defend_Implementation() override;
 
-    // IObserverInterface 인터페이스의 가상 함수를 구현
+    //IObserverInterface 인터페이스의 가상 함수를 구현 
     virtual void NotifyAttack() override;
 
-    // 옵저버 등록 및 알림 전달 함수
+    //옵저버 등록 및 알림 전달 함수
     void RegisterObserver(IObserverInterface* Observer);
     void UnregisterObserver(IObserverInterface* Observer);
 
 private:
-    TArray<IObserverInterface*> Observers;
+	TArray< IObserverInterface*> Observers;
 
 };

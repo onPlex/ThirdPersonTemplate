@@ -22,6 +22,7 @@ class THIRDPERSONTEMPLATE_API IObserverInterface
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	// 옵저버에게 공격 알림을 전달하는 함수
+	
+	//옵저버에게 공격 알림을 전달하는 함수
 	virtual void NotifyAttack() = 0;
 };

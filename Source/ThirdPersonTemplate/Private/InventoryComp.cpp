@@ -56,7 +56,7 @@ int32 UInventoryComp::GetItemQuantity(const FName& ItemName) const
 
 		이 표현식은 다음과 같은 의미를 가집니다:
 
-		ExistingQuantity가 NULL이 아닌 경우(즉, 해당 아이템이 인벤토리에 존재하는 경우):
+		ExistingQuantity가 NULL이 아닌 경우(즉, 해당 아;이템이 인벤토리에 존재하는 경우):
 		ExistingQuantity가 가리키는 정수값을 반환(*ExistingQuantity: 포인터가 가리키는 값)
 
 		ExistingQuantity가 NULL인 경우(즉, 해당 아이템이 인벤토리에 없는 경우):0을 반환
