@@ -15,11 +15,15 @@ UInventoryComp::UInventoryComp()
 
 void UInventoryComp::AddItem(const FName& ItemName, int32 Quantity)
 {
+          
 	int32* ExistingQuantity = InventoryMap.Find(ItemName);
-	if (ExistingQuantity)
+	
+	if (ExistingQuantity) //존재하면, ~~ 사람이 가르켜줬으면 
 	{
 		// 이미 해당 아이템이 인벤토리에 있는 경우 수량 증가
-		*ExistingQuantity += Quantity;
+		*ExistingQuantity += Quantity; 
+		// 그의 값  ~ ~ ~
+		// ItemName으로 값을 넣어서 인벤토리 맵에서 찾아진 걸 ~ ~ ~ 
 	}
 	else
 	{

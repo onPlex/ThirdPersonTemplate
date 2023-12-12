@@ -14,7 +14,7 @@ class UInteractable : public UInterface
 };
 
 /**
- * 
+ *
  */
 class THIRDPERSONTEMPLATE_API IInteractable
 {
@@ -23,7 +23,8 @@ class THIRDPERSONTEMPLATE_API IInteractable
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-	// 상호작용 함수 선언
+    //상호작용 함수 선언
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactable")
 	void Interact(AActor* Instigator);
+
 };
